@@ -1,6 +1,6 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
-from translations.translation import BACK, PASS
+from translations.translation import BACK, PASS, PHONE
 
 
 def backFileButton(lang="uz"):
@@ -26,3 +26,16 @@ def backButton(lang="uz"):
         resize_keyboard=True
     )
     return back
+
+
+def phone(lang="uz"):
+    phoneNumber = ReplyKeyboardMarkup(
+        keyboard=[
+            [
+                KeyboardButton(text=f'◀️ {BACK.get(lang)}'),
+                KeyboardButton(text=f'📞 {PHONE.get(lang)}', request_contact=True),
+            ],
+        ],
+        resize_keyboard=True
+    )
+    return phoneNumber

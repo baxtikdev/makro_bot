@@ -9,8 +9,8 @@ INTRO = {
 }
 
 INFO = {
-    "uz": "<b>Makro</b> - bu O'zbekistondagi eng yirik supermarketlar tarmog'idir. Bugungi kunda Makro butun mamlakat bo'ylab 55 ta supermarketga ega. Biz har yili kengaymoqdamiz, o'zimiz uchun yangi imkoniyatlar ufqlarini ochmoqdamiz, yosh avlodimizni ish bilan ta'minlab, istiqbolli kelajagimizni ta'minlaymiz, turmush darajasini oshirishga intilamiz.",
-    "ru": "<b>Makro</b> - это крупнейшая сеть супермаркетов в Узбекистане. На сегодня в Makro насчитывается 55 супермаркетов по всей республике. С каждым годом мы расширяемся, открываем новые горизонты возможностей для себя, обеспечиваем работой и перспективным будущим наше молодое поколение, стремимся сделать уровень жизни лучше."
+    "uz": "<b>Makro</b> - bu O'zbekistondagi eng yirik supermarketlar tarmog'idir. Bugungi kunda Makro butun mamlakat bo'ylab 55 ta supermarketga ega. Biz har yili kengaymoqdamiz, o'zimiz uchun yangi imkoniyatlar ufqlarini ochmoqdamiz, yosh avlodimizni ish bilan ta'minlab, istiqbolli kelajagimizni ta'minlaymiz, turmush darajasini oshirishga intilamiz.\n\n📌 <a href='http://makromarket.uz/'>Bizning veb-sayt</a>\n📌 <a href='https://fb.com/makromarket.uz/'>Facebook</a>\n📌 <a href='https://instagram.com/makro_supermarket/'>Instagram</a>\n📌 <a href='https://t.me/makrosupermarket_uz'>Telegram kanal</a>",
+    "ru": "<b>Makro</b> - это крупнейшая сеть супермаркетов в Узбекистане. На сегодня в Makro насчитывается 55 супермаркетов по всей республике. С каждым годом мы расширяемся, открываем новые горизонты возможностей для себя, обеспечиваем работой и перспективным будущим наше молодое поколение, стремимся сделать уровень жизни лучше.\n\n📌 <a href='http://makromarket.uz/'>Наш сайт</a>\n📌 <a href='https://fb.com/makromarket.uz/'>Facebook</a>\n📌 <a href='https://instagram.com/makro_supermarket/'>Instagram</a>\n📌 <a href='https://t.me/makrosupermarket_uz'>Telegram-канал</a>"
 }
 
 ADDRESS = {
@@ -21,8 +21,8 @@ ADDRESS = {
 URL = "https://yandex.uz/maps/org/238561961140/?filter=chain_id%3A220824235256&from=api-maps&ll=69.249012%2C41.301856&mode=search&origin=jsapi_2_1_79&pt=69.24927999999997%2C41.30173600002781~69.249131%2C41.30161~69.248424%2C41.302876~69.247373%2C41.303425~69.248788%2C41.304218~69.248208%2C41.299267~69.248934%2C41.299079~69.247186%2C41.304389~69.248734%2C41.305307~69.245081%2C41.303685&sctx=ZAAAAAgBEAAaKAoSCQDjGTT0T1FAEU8DBkmfpkRAEhIJ1xLyQc9mpT8RZaa0%2FpYAnD8iBgABAgMEBSgAOABAoZ8GSAFiEnBvaW50X2NvbnRleHRfdjI9MWIqY29sbGVjdGlvbnNfcmFua2luZ19tb2RlbD1jb2xsZWN0aW9uc19kc3NtagJ1eoIBFWNoYWluX2lkOjIyMDgyNDIzNTI1Np0BzcxMPaABAKgBAL0BXIP%2FKsIBBrTJmtv4BuoBAPIBAPgBAIICFWNoYWluX2lkOjIyMDgyNDIzNTI1NooCAJICAJoCDGRlc2t0b3AtbWFwc6oCJTIyMDgyNDIzNTI1NiwxOTQ1MDIxOTE1NjYsNDk0MTkxMDg1NjewAgE%3D&sll=69.249012%2C41.301856&sspn=0.002705%2C0.001769&text=makro&z=18.95"
 
 LOCATION = {
-    "uz": "Ko'rish uchun bosing",
-    "ru": "Нажмите, чтобы просмотреть",
+    "uz": "Geolokatsiya",
+    "ru": "Геолокация",
 }
 
 CONTACT = {
@@ -33,6 +33,16 @@ CONTACT = {
 BACK = {
     "uz": "Ortga",
     "ru": "Назадь",
+}
+
+PHONE = {
+    "uz": "Mening raqamim",
+    "ru": "Мой номер",
+}
+
+FORMAT = {
+    "uz": "Qo'llab-quvvatlanmaydigan format",
+    "ru": "Неподдерживаемый формат",
 }
 
 PROFESSION = {

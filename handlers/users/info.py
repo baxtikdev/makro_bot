@@ -6,29 +6,33 @@ from aiogram.dispatcher.storage import FSMContext
 from aiogram.types.reply_keyboard import ReplyKeyboardRemove
 
 from data.config import env, ADMINS
-from keyboards.default.defaultKeys import backFileButton, backButton
-from keyboards.inline.inlineKeys import officeLocation, professions, mainMenu, regions, vacancy, backToMain
+from keyboards.default.defaultKeys import backFileButton, backButton, phone
+from keyboards.inline.inlineKeys import officeLocation, professions, mainMenu, regions, vacancy, backToMain, backInline
 from loader import dp, bot
 from states.baseState import BaseState, Anketa
 from translations.images import INFO_IMAGE, OFFICE, CONNECT, INTRO_IMAGE
 from translations.translation import INFO, ADDRESS, CONTACT, PROFESSION, INTRO, BackToMain, GOTO, FillOutForm, \
-    LastMessage, PHONE_FORMAT_ERROR, FULLNAME_FORMAT_ERROR
+    LastMessage, PHONE_FORMAT_ERROR, FULLNAME_FORMAT_ERROR, FORMAT
 
 
 @dp.callback_query_handler(lambda message: message.data == "info", state=BaseState.menu)
 async def get_info(call: types.CallbackQuery, state=FSMContext):
     data = await state.get_data()
+    await call.message.delete()
     language = data.get('language')
     await call.message.answer_photo(
         photo=INFO_IMAGE,
-        caption=INFO.get(language)
+        caption=INFO.get(language),
+        reply_markup=backInline(language)
     )
     await call.answer(cache_time=0.02)
+    await BaseState.professions.set()
 
 
 @dp.callback_query_handler(lambda message: message.data == "address", state=BaseState.menu)
 async def get_address(call: types.CallbackQuery, state=FSMContext):
     data = await state.get_data()
+    await call.message.delete()
     language = data.get('language')
     await call.message.answer_photo(
         photo=OFFICE,
@@ -36,17 +40,21 @@ async def get_address(call: types.CallbackQuery, state=FSMContext):
         reply_markup=officeLocation(language)
     )
     await call.answer(cache_time=0.02)
+    await BaseState.professions.set()
 
 
 @dp.callback_query_handler(lambda message: message.data == "connect", state=BaseState.menu)
 async def get_connect(call: types.CallbackQuery, state=FSMContext):
     data = await state.get_data()
+    await call.message.delete()
     language = data.get('language')
     await call.message.answer_photo(
         photo=CONNECT,
-        caption=CONTACT.get(language)
+        caption=CONTACT.get(language),
+        reply_markup=backInline(language)
     )
     await call.answer(cache_time=0.02)
+    await BaseState.professions.set()
 
 
 @dp.callback_query_handler(lambda message: message.data == "professions", state=BaseState.menu)
@@ -136,6 +144,7 @@ async def back(call: types.CallbackQuery, state=FSMContext):
 @dp.callback_query_handler(state=BaseState.vacancies)
 async def back(call: types.CallbackQuery, state=FSMContext):
     data = await state.get_data()
+    await call.answer(cache_time=0.02)
     language = data.get('language')
     if call.data == 'MAIN':
         await call.message.delete()
@@ -150,8 +159,11 @@ async def back(call: types.CallbackQuery, state=FSMContext):
         await call.message.answer_photo(
             photo=OFFICE,
             caption=GOTO.get(language),
-            reply_markup=backToMain(language)
+            reply_markup=officeLocation(language)
+            # reply_markup=backToMain(language)
         )
+        await BaseState.professions.set()
+        return
     elif call.data.split('_')[1] == '2':  # rezume yuborish
         pass
     elif call.data.split('_')[1] == '0':  # anketa to'ldirish
@@ -160,7 +172,6 @@ async def back(call: types.CallbackQuery, state=FSMContext):
             reply_markup=backFileButton(language)
         )
         await Anketa.file.set()
-    await call.answer(cache_time=0.02)
 
 
 @dp.message_handler(content_types=types.ContentType.TEXT, state=Anketa.file)
@@ -187,6 +198,11 @@ async def get_file(message: types.Message, state=FSMContext):
             reply_markup=mainMenu(language)
         )
         await BaseState.menu.set()
+        return
+    elif message.text:
+        await message.answer(
+            text=FORMAT.get(language)
+        )
         return
 
     if message.photo:
@@ -235,13 +251,14 @@ async def get_fullname(message: types.Message, state=FSMContext):
 
     await message.answer(
         text=FillOutForm.get('phone').get(language),
-        reply_markup=backButton(language)
+        reply_markup=phone(language)
     )
     await Anketa.phone.set()
 
 
+@dp.message_handler(content_types=types.ContentType.CONTACT, state=Anketa.phone)
 @dp.message_handler(content_types=types.ContentType.TEXT, state=Anketa.phone)
-async def get_fullname(message: types.Message, state=FSMContext):
+async def get_phone(message: types.Message, state=FSMContext):
     data = await state.get_data()
     language = data.get('language')
 
@@ -252,9 +269,12 @@ async def get_fullname(message: types.Message, state=FSMContext):
         )
         await Anketa.fullname.set()
         return
-    phone = message.text
+    if message.contact:
+        number = message.contact.phone_number
+    else:
+        number = message.text
     phone_pattern = r'^\+998\d{2}\d{3}\d{4}$'
-    if not re.match(phone_pattern, phone):
+    if not re.match(phone_pattern, number):
         await message.reply(PHONE_FORMAT_ERROR.get(language))
         return
 
@@ -272,10 +292,10 @@ async def get_fullname(message: types.Message, state=FSMContext):
     if data.get('photo_file_id'):
         if language == "uz":
             await bot.send_photo(chat_id=ADMINS[0], photo=data.get('photo_file_id'),
-                                 caption=f"👤 Ism: {data.get('fullname')}\n\n📞 Tel: {phone}")
+                                 caption=f"👤 Ism: {data.get('fullname')}\n\n📞 Tel: {number}")
         else:
             await bot.send_photo(chat_id=ADMINS[0], photo=data.get('photo_file_id'),
-                                 caption=f"👤 Имя: {data.get('fullname')}\n\n📞 Тел.: {phone}")
+                                 caption=f"👤 Имя: {data.get('fullname')}\n\n📞 Тел.: {number}")
 
         await state.update_data({
             "photo_file_id": None
@@ -284,10 +304,16 @@ async def get_fullname(message: types.Message, state=FSMContext):
     elif data.get('file_id'):
         if language == "uz":
             await bot.send_document(chat_id=ADMINS[0], document=data.get('file_id'),
-                                    caption=f"👤 Ism: {data.get('fullname')}\n\n📞 Tel: {phone}")
+                                    caption=f"👤 Ism: {data.get('fullname')}\n\n📞 Tel: {number}")
         else:
             await bot.send_document(chat_id=ADMINS[0], document=data.get('file_id'),
-                                    caption=f"👤 Имя: {data.get('fullname')}\n\n📞 Тел.: {phone}")
+                                    caption=f"👤 Имя: {data.get('fullname')}\n\n📞 Тел.: {number}")
         await state.update_data({
             "file_id": None
         })
+
+    else:
+        if language == "uz":
+            await bot.send_message(chat_id=ADMINS[0], text=f"👤 Ism: {data.get('fullname')}\n\n📞 Tel: {number}")
+        else:
+            await bot.send_document(chat_id=ADMINS[0], text=f"👤 Имя: {data.get('fullname')}\n\n📞 Тел.: {number}")

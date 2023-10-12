@@ -12,6 +12,12 @@ language = InlineKeyboardMarkup(
 )
 
 
+def backInline(lang='uz'):
+    keyboard = InlineKeyboardMarkup(row_width=1)
+    keyboard.insert(InlineKeyboardButton(text=f"◀️ {BACK.get(lang)}", callback_data='back'))
+    return keyboard
+
+
 def mainMenu(lang='uz'):
     keyboard = InlineKeyboardMarkup(row_width=2)
     keyboard.insert(InlineKeyboardButton(text=f"ℹ️ {MENU.get(lang)[0]}", callback_data='info'))
@@ -23,8 +29,9 @@ def mainMenu(lang='uz'):
 
 
 def officeLocation(lang='uz'):
-    keyboard = InlineKeyboardMarkup(row_width=2)
+    keyboard = InlineKeyboardMarkup(row_width=1)
     keyboard.insert(InlineKeyboardButton(text=f"📍 {LOCATION.get(lang)}", url=URL))
+    keyboard.insert(InlineKeyboardButton(text=f"◀️ {BACK.get(lang)}", callback_data='back'))
     return keyboard
 
 
