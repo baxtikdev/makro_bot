@@ -2,7 +2,7 @@ import requests
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from data.config import env
-from translations.translation import MENU, URL, LOCATION, BACK, BackToMainButton, APPLY
+from translations.translation import MENU, URL, LOCATION, BACK, BackToMainButton, APPLY, APPROVE, CANCEL
 
 language = InlineKeyboardMarkup(
     inline_keyboard=[
@@ -79,4 +79,11 @@ def vacancy(vacancy, lang='uz'):
         keyboard.insert(InlineKeyboardButton(text=i,
                                              callback_data=f"{vacancy.get('profession').get('title')}_{j}"))
     keyboard.add(InlineKeyboardButton(text=f"◀️ {BackToMainButton.get(lang)}", callback_data="MAIN"))
+    return keyboard
+
+
+def requestBtn(id, lang='uz'):
+    keyboard = InlineKeyboardMarkup(row_width=1)
+    keyboard.add(InlineKeyboardButton(text=f"✅ {APPROVE.get(lang)}", callback_data=f"approve_{id}"))
+    keyboard.add(InlineKeyboardButton(text=f"❌ {CANCEL.get(lang)}", callback_data=f"cancel_{id}"))
     return keyboard

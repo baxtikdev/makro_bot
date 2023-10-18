@@ -110,3 +110,38 @@ FULLNAME_FORMAT_ERROR = {
     "uz": "To‘liq ism formati noto‘g‘ri. Iltimos, harflar, bo'shliqlar, defislar va apostroflardan foydalangan holda to'liq ismni kiriting.",
     "ru": "Неверный формат полного имени. Введите допустимое полное имя, используя буквы, пробелы, дефисы и апострофы.",
 }
+
+NAME = {
+    "uz": "Ism",
+    "ru": "Имя",
+}
+
+TEL = {
+    "uz": "Tel.",
+    "ru": "Тел.",
+}
+
+APPROVE = {
+    "uz": "Maqullandi",
+    "ru": "Одобренный",
+}
+
+CANCEL = {
+    "uz": "Maqullanmadi",
+    "ru": "Не одобрено",
+}
+
+REQUEST = {
+    "uz": "Xabar yuborildi",
+    "ru": "Сообщение отправлено",
+}
+
+APP_RESPONSE_ACCEPT = {
+    "uz": "Siz yuborgan so'rov qavul qilindi, iltimos Makro ofisiga kerakli xujjatlar bilan boring.",
+    "ru": "Ваш запрос принят, пожалуйста, обратитесь в офис Макро с необходимыми документами.",
+}
+
+APP_RESPONSE_CANCEL = {
+    "uz": "Siz yuborgan so'rov qavul qilinmadi",
+    "ru": "Ваш запрос не принят",
+}

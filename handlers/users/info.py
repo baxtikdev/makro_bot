@@ -7,12 +7,14 @@ from aiogram.types.reply_keyboard import ReplyKeyboardRemove
 
 from data.config import env, ADMINS
 from keyboards.default.defaultKeys import backFileButton, backButton, phone
-from keyboards.inline.inlineKeys import officeLocation, professions, mainMenu, regions, vacancy, backToMain, backInline
+from keyboards.inline.inlineKeys import officeLocation, professions, mainMenu, regions, vacancy, backToMain, backInline, \
+    requestBtn
 from loader import dp, bot
 from states.baseState import BaseState, Anketa
 from translations.images import INFO_IMAGE, OFFICE, CONNECT, INTRO_IMAGE
 from translations.translation import INFO, ADDRESS, CONTACT, PROFESSION, INTRO, BackToMain, GOTO, FillOutForm, \
-    LastMessage, PHONE_FORMAT_ERROR, FULLNAME_FORMAT_ERROR, FORMAT
+    LastMessage, PHONE_FORMAT_ERROR, FULLNAME_FORMAT_ERROR, FORMAT, NAME, TEL, REQUEST, APP_RESPONSE_ACCEPT, \
+    APP_RESPONSE_CANCEL
 
 
 @dp.callback_query_handler(lambda message: message.data == "info", state=BaseState.menu)
@@ -112,6 +114,11 @@ async def get_vacancies(call: types.CallbackQuery, state=FSMContext):
             text=formated(v, language),
             reply_markup=vacancy(v, language)
         )
+
+    await state.update_data({
+        "prof": prof_id,
+        "region": region_id,
+    })
     await call.answer(cache_time=0.02)
     await BaseState.vacancies.set()
 
@@ -273,7 +280,7 @@ async def get_phone(message: types.Message, state=FSMContext):
         number = message.contact.phone_number
     else:
         number = message.text
-    phone_pattern = r'^\+998\d{2}\d{3}\d{4}$'
+    phone_pattern = r'^\998\d{2}\d{3}\d{4}$'
     if not re.match(phone_pattern, number):
         await message.reply(PHONE_FORMAT_ERROR.get(language))
         return
@@ -288,32 +295,64 @@ async def get_phone(message: types.Message, state=FSMContext):
         reply_markup=mainMenu(language)
     )
     await BaseState.menu.set()
+    BASE_URL = env.str("BASE_URL")
+    request = requests.post(
+        url=BASE_URL + "/api/application-create/",
+        data={
+            "region": data.get("region"),
+            "profession": data.get("prof"),
+            "user_id": message.from_user.id,
+            "fullname": data.get("fullname"),
+            "phone": number,
+
+        })
+    id = request.json().get('id')
 
     if data.get('photo_file_id'):
-        if language == "uz":
-            await bot.send_photo(chat_id=ADMINS[0], photo=data.get('photo_file_id'),
-                                 caption=f"👤 Ism: {data.get('fullname')}\n\n📞 Tel: {number}")
-        else:
-            await bot.send_photo(chat_id=ADMINS[0], photo=data.get('photo_file_id'),
-                                 caption=f"👤 Имя: {data.get('fullname')}\n\n📞 Тел.: {number}")
-
-        await state.update_data({
-            "photo_file_id": None
-        })
+        await bot.send_photo(chat_id=ADMINS[0], photo=data.get('photo_file_id'),
+                             caption=f"👤 {NAME.get(language)}: {data.get('fullname')}\n\n📞 {TEL.get(language)}: {number}",
+                             reply_markup=requestBtn(id, language))
 
     elif data.get('file_id'):
-        if language == "uz":
-            await bot.send_document(chat_id=ADMINS[0], document=data.get('file_id'),
-                                    caption=f"👤 Ism: {data.get('fullname')}\n\n📞 Tel: {number}")
-        else:
-            await bot.send_document(chat_id=ADMINS[0], document=data.get('file_id'),
-                                    caption=f"👤 Имя: {data.get('fullname')}\n\n📞 Тел.: {number}")
-        await state.update_data({
-            "file_id": None
-        })
+        await bot.send_document(chat_id=ADMINS[0], document=data.get('file_id'),
+                                caption=f"👤 {NAME.get(language)}: {data.get('fullname')}\n\n📞 {TEL.get(language)}: {number}",
+                                reply_markup=requestBtn(id, language))
 
     else:
-        if language == "uz":
-            await bot.send_message(chat_id=ADMINS[0], text=f"👤 Ism: {data.get('fullname')}\n\n📞 Tel: {number}")
-        else:
-            await bot.send_document(chat_id=ADMINS[0], text=f"👤 Имя: {data.get('fullname')}\n\n📞 Тел.: {number}")
+        await bot.send_message(chat_id=ADMINS[0],
+                               text=f"👤 {NAME.get(language)}: {data.get('fullname')}\n\n📞 {TEL.get(language)}: {number}",
+                               reply_markup=requestBtn(id, language))
+
+    await state.finish()
+    await state.update_data({
+        'language': language
+    })
+
+
+@dp.callback_query_handler()
+async def application(call: types.CallbackQuery, state=FSMContext):
+    data = await state.get_data()
+    language = data.get('language')
+    key = call.data.split("_")[0]
+    id = call.data.split("_")[1]
+
+    await call.answer(cache_time=0.02)
+    await call.answer(text=f"{REQUEST.get(language)}")
+    try:
+        await call.message.delete()
+    except:
+        pass
+
+    BASE_URL = env.str("BASE_URL")
+    data = requests.get(url=BASE_URL + f"/api/application-detail/{id}/", headers={"Accept-Language": language})
+    response = data.json()
+
+    try:
+        if key == "approve":
+            await bot.send_message(chat_id=response["user_id"],
+                                   text=f"{APP_RESPONSE_ACCEPT.get(language)}")
+        elif key == 'cancel':
+            await bot.send_message(chat_id=response["user_id"],
+                                   text=f"{APP_RESPONSE_CANCEL.get(language)}")
+    except:
+        pass
