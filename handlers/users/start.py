@@ -11,9 +11,9 @@ from translations.images import INTRO_IMAGE
 from translations.translation import INTRO
 
 
-@dp.message_handler(content_types=types.ContentType.PHOTO, state="*")
-async def photo(message: types.Message, state: FSMContext):
-    print(message.photo[0].file_id)
+# @dp.message_handler(content_types=types.ContentType.PHOTO, state="*")
+# async def photo(message: types.Message, state: FSMContext):
+#     print(message.photo[0].file_id)
 
 
 @dp.message_handler(commands=['start', 'lang'], state='*')

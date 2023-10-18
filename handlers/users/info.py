@@ -216,15 +216,9 @@ async def get_file(message: types.Message, state=FSMContext):
         await state.update_data({
             "photo_file_id": message.photo[0].file_id
         })
-        await state.update_data({
-            "file_id": None
-        })
     else:
         await state.update_data({
             "file_id": message.document.file_id
-        })
-        await state.update_data({
-            "photo_file_id": None
         })
     await message.answer(
         text=FillOutForm.get('fullname').get(language),
@@ -246,7 +240,7 @@ async def get_fullname(message: types.Message, state=FSMContext):
         await Anketa.file.set()
         return
     fullname = message.text
-    full_name_pattern = r'^[A-Za-zÀ-ÖØ-öø-ÿ\'-]+(?: [A-Za-zÀ-ÖØ-öø-ÿ\'-]+)*$'
+    full_name_pattern = r'^[A-Za-zÀ-ÖØ-öø-ÿА-Яа-я\'-]+(?: [A-Za-zÀ-ÖØ-öø-ÿА-Яа-я\'-]+)*$'
 
     if re.match(full_name_pattern, fullname):
         await state.update_data({
@@ -280,7 +274,7 @@ async def get_phone(message: types.Message, state=FSMContext):
         number = message.contact.phone_number
     else:
         number = message.text
-    phone_pattern = r'^\998\d{2}\d{3}\d{4}$'
+    phone_pattern = r'^\+?\d{12}$'
     if not re.match(phone_pattern, number):
         await message.reply(PHONE_FORMAT_ERROR.get(language))
         return
@@ -296,18 +290,18 @@ async def get_phone(message: types.Message, state=FSMContext):
     )
     await BaseState.menu.set()
     BASE_URL = env.str("BASE_URL")
-    request = requests.post(
-        url=BASE_URL + "/api/application-create/",
-        data={
-            "region": data.get("region"),
-            "profession": data.get("prof"),
-            "user_id": message.from_user.id,
-            "fullname": data.get("fullname"),
-            "phone": number,
+    url = BASE_URL + "/api/application-create/"
+    post_data = {
+        "region": data.get("region"),
+        "profession": data.get("prof"),
+        "user_id": message.from_user.id,
+        "fullname": data.get("fullname"),
+        "phone": number,
+    }
 
-        })
-    id = request.json().get('id')
-
+    response = requests.post(url, data=post_data)
+    response_data = response.json()
+    id = response_data.get('id')
     if data.get('photo_file_id'):
         await bot.send_photo(chat_id=ADMINS[0], photo=data.get('photo_file_id'),
                              caption=f"👤 {NAME.get(language)}: {data.get('fullname')}\n\n📞 {TEL.get(language)}: {number}",
@@ -329,7 +323,7 @@ async def get_phone(message: types.Message, state=FSMContext):
     })
 
 
-@dp.callback_query_handler()
+@dp.callback_query_handler(lambda text: text.data.startswith("approve_") or text.data.startswith("cancel_"), state="*")
 async def application(call: types.CallbackQuery, state=FSMContext):
     data = await state.get_data()
     language = data.get('language')
