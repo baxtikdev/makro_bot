@@ -32,7 +32,7 @@ CONTACT = {
 
 BACK = {
     "uz": "Ortga",
-    "ru": "Назадь",
+    "ru": "Назад",
 }
 
 PHONE = {
