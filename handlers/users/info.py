@@ -84,9 +84,27 @@ async def get_regions(call: types.CallbackQuery, state=FSMContext):
 
 
 def formated(data, language):
+    body = ""
     if language == 'ru':
-        return f"<b>Вакансия: </b> <b>{data.get('profession').get('title')}</b>\n❗️ Требования\n{data.get('requirements')}\n\n 📍Обязанности:\n{data.get('responsibility')}\n\n ✅ Условия работы:\n{data.get('offer')}"
-    return f"<b>Ish o'rni: </b> <b>{data.get('profession').get('title')}</b>\n❗️ Talablar\n{data.get('requirements')}\n\n 📍Mas'uliyat:\n{data.get('responsibility')}\n\n ✅ Ish sharoitlari:\n{data.get('offer')}"
+        if data.get('profession').get('title'):
+            body += f"<b>Вакансия: </b> <b>{data.get('profession').get('title')}</b>\n"
+        if data.get('requirements'):
+            body += f"❗️ Требования\n{data.get('requirements')}\n\n"
+        if data.get('responsibility'):
+            body += f" 📍Обязанности:\n{data.get('responsibility')}\n\n"
+        if data.get('offer'):
+            body += f" ✅ Условия работы:\n{data.get('offer')}"
+        return body
+
+    if data.get('profession').get('title'):
+        body += f"<b>Ish o'rni: </b> <b>{data.get('profession').get('title')}</b>\n"
+    if data.get('requirements'):
+        body += f"❗️ Talablar\n{data.get('requirements')}\n\n"
+    if data.get('responsibility'):
+        body += f" 📍Mas'uliyat:\n{data.get('responsibility')}\n\n"
+    if data.get('offer'):
+        body += f" ✅ Ish sharoitlari:\n{data.get('offer')}"
+    return body
 
 
 @dp.callback_query_handler(lambda message: message.data != "back", state=BaseState.regions)
@@ -100,7 +118,7 @@ async def get_vacancies(call: types.CallbackQuery, state=FSMContext):
     region_id = call.data.split('_')[1]
 
     BASE_URL = env.str("BASE_URL")
-    data = requests.get(url=BASE_URL + f"/api/vacancy-list/?profession={prof_id}&region={region_id}",
+    data = requests.get(url=BASE_URL + f"/api/vacancy-list/?profession={prof_id}",
                         headers={"Accept-Language": language})
     if not data.json():
         await call.message.answer(
@@ -109,9 +127,19 @@ async def get_vacancies(call: types.CallbackQuery, state=FSMContext):
         )
         await BaseState.vacancies.set()
         return
+
     for v in data.json():
-        await call.message.answer(
-            text=formated(v, language),
+        if v.get('profession').get('title') in ['Sotuvchi-kassir', 'Продавец-кассир']:
+            photo = 'AgACAgIAAxkBAAIGkWUyqu3tXx2xHtiVPq3ZCkGBTtNXAAJo0TEbxryQSTfyUqB0ScI1AQADAgADcwADMAQ'
+        elif v.get('profession').get('title') in ['Yukchi', 'Грузчик']:
+            photo = 'AgACAgIAAxkBAAIGkmUyqyHPaTvE69fuVOF3H6Jkbf3cAAJp0TEbxryQSUtbZ4HoT8FQAQADAgADcwADMAQ'
+        elif v.get('profession').get('title') in ["Qo'riqchi", "Охранник"]:
+            photo = 'AgACAgIAAxkBAAIGk2UyqzTRMTBTkZe_CQHf0_bpXV1TAAJr0TEbxryQSWDm_lLYKQuAAQADAgADcwADMAQ'
+        else:  # v.get('profession').get('title') in ['Ofis', 'Офис']:
+            photo = 'AgACAgIAAxkBAAIGlGUyq0d9DKh0jmMOAAHNNu5BXjf0wwACbdExG8a8kEkWxcUW4AatHwEAAwIAA3MAAzAE'
+        await call.message.answer_photo(
+            photo=photo,
+            caption=formated(v, language),
             reply_markup=vacancy(v, language)
         )
 
@@ -274,7 +302,8 @@ async def get_phone(message: types.Message, state=FSMContext):
         number = message.contact.phone_number
     else:
         number = message.text
-    phone_pattern = r'^\+?\d{12}$'
+    number = number.replace(' ', '')
+    phone_pattern = r'(\+?998\(\d{2}\)\d{3}-\d{2}-\d{2}|\+?998\(\d{2}\)\d{7}|\+?998\d{5}-\d{2}-\d{2}|\+?998\(\d{2}\)\d{3}-\d{2}-\d{2}|\+?998\(\d{2}\)\d{7}|\+?998\d{5}-\d{2}-\d{2}|\+?998\d{9}|\+?998\s?\d{2}\s?\d{3}\s?\d{2}\s?\d{2})'
     if not re.match(phone_pattern, number):
         await message.reply(PHONE_FORMAT_ERROR.get(language))
         return
@@ -303,6 +332,7 @@ async def get_phone(message: types.Message, state=FSMContext):
     response = requests.post(url, data=post_data)
     response_data = response.json()
     id = response_data.get('id')
+
     if data.get('photo_file_id'):
         await bot.send_photo(chat_id=GROUP, photo=data.get('photo_file_id'),
                              caption=f"👤 {NAME.get(language)}: {data.get('fullname')}\n\n📞 {TEL.get(language)}: {number}",

@@ -9,8 +9,8 @@ INTRO = {
 }
 
 INFO = {
-    "uz": "<b>Makro</b> - bu O'zbekistondagi eng yirik supermarketlar tarmog'idir. Bugungi kunda Makro butun mamlakat bo'ylab 55 ta supermarketga ega. Biz har yili kengaymoqdamiz, o'zimiz uchun yangi imkoniyatlar ufqlarini ochmoqdamiz, yosh avlodimizni ish bilan ta'minlab, istiqbolli kelajagimizni ta'minlaymiz, turmush darajasini oshirishga intilamiz.\n\n📌 <a href='http://makromarket.uz/'>Bizning veb-sayt</a>\n📌 <a href='https://fb.com/makromarket.uz/'>Facebook</a>\n📌 <a href='https://instagram.com/makro_supermarket/'>Instagram</a>\n📌 <a href='https://t.me/makrosupermarket_uz'>Telegram kanal</a>",
-    "ru": "<b>Makro</b> - это крупнейшая сеть супермаркетов в Узбекистане. На сегодня в Makro насчитывается 55 супермаркетов по всей республике. С каждым годом мы расширяемся, открываем новые горизонты возможностей для себя, обеспечиваем работой и перспективным будущим наше молодое поколение, стремимся сделать уровень жизни лучше.\n\n📌 <a href='http://makromarket.uz/'>Наш сайт</a>\n📌 <a href='https://fb.com/makromarket.uz/'>Facebook</a>\n📌 <a href='https://instagram.com/makro_supermarket/'>Instagram</a>\n📌 <a href='https://t.me/makrosupermarket_uz'>Telegram-канал</a>"
+    "uz": "<b>Makro</b> - bu O'zbekistondagi eng yirik supermarketlar tarmog'idir. Bugungi kunda Makro butun mamlakat bo'ylab 55 ta supermarketga ega. Biz har yili kengaymoqdamiz, o'zimiz uchun yangi imkoniyatlar ufqlarini ochmoqdamiz, yosh avlodimizni ish bilan ta'minlab, istiqbolli kelajagimizni ta'minlaymiz, turmush darajasini oshirishga intilamiz.\n\n📌 Bizning veb-sayt (http://makromarket.uz/)\n📌 Facebook (https://fb.com/makromarket.uz/)\n📌 Instagram (https://instagram.com/makro_supermarket/)\n📌 Telegram kanal (https://t.me/makrosupermarket_uz)",
+    "ru": "<b>Makro</b> - это крупнейшая сеть супермаркетов в Узбекистане. На сегодняшний день в Makro насчитывается 55 супермаркетов по всей республике. С каждым годом мы расширяемся, открываем новые горизонты возможностей для себя, обеспечиваем работой и перспективным будущим наше молодое поколение и стремимся улучшить уровень жизни.\n\n📌 Наш сайт (http://makromarket.uz/)\n📌 Facebook (https://fb.com/makromarket.uz/)\n📌 Instagram (https://instagram.com/makro_supermarket/)\n📌 Telegram-канал (https://t.me/makrosupermarket_uz)"
 }
 
 ADDRESS = {
@@ -66,8 +66,8 @@ APPLY = {
 }
 
 GOTO = {
-    "uz": "Suhbat har seshanba va payshanba kunlari soat <b>09:00 dan 17:00 gacha</b> Toshkent shahri, Magtimguli ko'chasi 134. Makro Tashselmash, 2-qavat manzilida o'tkaziladi. Iltimos, o'zingiz bilan <b>pasport</b>, <b>diplom</b> yoki <b>ma'lumotingizni tasdiqlovchi, mutaxassisligingiz yoki malakangizni tasdiqlovchi boshqa hujjat</b>, <b>3X4 o'lchamdagi fotosurat</b> - <b>2 dona</b> olib keling.",
-    "ru": "Собеседование проводится каждый вторник и четверг <b>с 09:00 до 17:00</b> по адресу: г. Ташкент улица Махтумкули 134. Makro Ташсельмаш, 2 этаж. Просим иметь с собой  <b>паспорт</b>, <b>диплом</b> или <b>иной документ о полученном образовании, подтверждающий специальность или квалификацию</b>, <b>фото 3Х4</b> – <b>2шт</b>."
+    "uz": "Suhbat har seshanba va payshanba kunlari soat 09:00 dan 17:00 gacha Toshkent shahri, Magtimguli ko‘chasi, 134-uy manzilida o‘tkaziladi.\nMakro Tashselmash, 2-qavat. O'zingiz bilan pasport, diplom yoki ma'lumotingizni tasdiqlovchi, mutaxassisligingiz yoki malakangizni tasdiqlovchi boshqa hujjat, 3x4 o'lchamdagi fotosurat - 2 dona olib keling.",
+    "ru": "Собеседование проводится каждый вторник и четверг с 09:00 до 17:00 по адресу: г. Ташкент, улица Махтумкули, 134.\nMakro Ташсельмаш, 2 этаж. Просим иметь с собой паспорт, диплом или иной документ о полученном образовании, подтверждающий специальность или квалификацию, фото 3х4 – 2 шт."
 }
 
 SEND_CV = {
@@ -77,16 +77,16 @@ SEND_CV = {
 
 FillOutForm = {
     "cv": {
-        "uz": "Agar sizda tayyor rezyume bo'lsa, uni istalgan formatda yuborishingiz mumkin",
-        "ru": 'Если у Вас есть готовое резюме, то можете его отправить здесь Нажмите на "скрепку" и отправьте фаил в любом формате',
+        "uz": "Agar sizda tayyor rezyume bo'lsa, uni shu yerga yuborishingiz mumkin. <b>Qog'oz qisqichi</b> belgisini bosing va faylni istalgan formatda yuboring.",
+        "ru": "Если у вас есть готовое резюме, то вы можете отправить его сюда. Нажмите на значок <b>скрепки</b> и отправьте файл в любом формате.",
     },
     "fullname": {
         "uz": 'Ism va familiyangizni yozing',
         "ru": 'Напишите ваше Имя и Фамилию',
     },
     "phone": {
-        "uz": 'Aloqa uchun telefon raqamingizni quyidagi formatida yozing: +9989(X)XXX XX XX',
-        "ru": 'Напишите Ваш номер телефона для связив формате: +9989(Х)ХХХ ХХ ХХ',
+        "uz": 'Aloqa uchun telefon raqamingizni quyidagi formatida yozing: +998(XX)XXX-XX-XX',
+        "ru": 'Напишите Ваш номер телефона для связив формате: +998(XX)XXX-XX-XX',
     },
 }
 
@@ -102,8 +102,8 @@ PASS = {
 }
 
 PHONE_FORMAT_ERROR = {
-    "uz": "O‘zbekiston telefon raqami formati noto‘g‘ri. Iltimos, +998XXYYYZZZZ formatida yaroqli Oʻzbekiston telefon raqamini kiriting.",
-    "ru": "Неверный формат номера телефона Узбекистана. Пожалуйста, введите действительный номер телефона Узбекистана в формате +998XYYYYZZZZ.",
+    "uz": "O‘zbekiston telefon raqami formati noto‘g‘ri. Iltimos, +998(XX)XXX-XX-XX formatida yaroqli Oʻzbekiston telefon raqamini kiriting.",
+    "ru": "Неверный формат номера телефона Узбекистана. Пожалуйста, введите действительный номер телефона Узбекистана в формате +998(XX)XXX-XX-XX",
 }
 
 FULLNAME_FORMAT_ERROR = {
