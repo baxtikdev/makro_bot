@@ -3,14 +3,19 @@ MENU = {
     "ru": ["Про нас", "Вакансии", "Наш адрес", "Обратная связь", "Сменить язык"]
 }
 
+REGIONS = {
+    "uz": ['Тойтепа', 'Чирчик', 'Ташкент', 'Ферганская область', 'Андижанская облась', 'Кибрай'],
+    "ru": ['Toʻytepa', 'Chirchiq', 'Toshkent', "Farg'ona viloyati", 'Andijon viloyati', 'Qibray']
+}
+
 INTRO = {
     "uz": "Assalomu alaykum!\nMen Makro HR jamoasining yordamchisiman\n\nMening yordamim bilan siz:\n<b>1.</b> Makro supermarketlar tarmog'idagi bo'sh ish o'rinlari haqida eng so'nggi ma'lumotlarni topishingiz mumkin\n <b>2.</b> Bo'sh ish o'rinlari uchun ariza/profilingizni yuboring\n<b>3.</b> Makro jamoasiga a'zo bo'ling",
     "ru": "Здравствуйте!\nЯ - помощник HR команда Makro\n\nС помощью меня, Вы сможете:\n<b>1.</b> Найти актуальную информацию о вакансиях в сети супермаркетов Makro\n<b>2.</b> Отправить свою Заявку/Анкету на вакансию\n<b>3.</b> Стать частью команды Makro"
 }
 
 INFO = {
-    "uz": "<b>Makro</b> - bu O'zbekistondagi eng yirik supermarketlar tarmog'idir. Bugungi kunda Makro butun mamlakat bo'ylab 55 ta supermarketga ega. Biz har yili kengaymoqdamiz, o'zimiz uchun yangi imkoniyatlar ufqlarini ochmoqdamiz, yosh avlodimizni ish bilan ta'minlab, istiqbolli kelajagimizni ta'minlaymiz, turmush darajasini oshirishga intilamiz.\n\n📌 Bizning veb-sayt (http://makromarket.uz/)\n📌 Facebook (https://fb.com/makromarket.uz/)\n📌 Instagram (https://instagram.com/makro_supermarket/)\n📌 Telegram kanal (https://t.me/makrosupermarket_uz)",
-    "ru": "<b>Makro</b> - это крупнейшая сеть супермаркетов в Узбекистане. На сегодняшний день в Makro насчитывается 55 супермаркетов по всей республике. С каждым годом мы расширяемся, открываем новые горизонты возможностей для себя, обеспечиваем работой и перспективным будущим наше молодое поколение и стремимся улучшить уровень жизни.\n\n📌 Наш сайт (http://makromarket.uz/)\n📌 Facebook (https://fb.com/makromarket.uz/)\n📌 Instagram (https://instagram.com/makro_supermarket/)\n📌 Telegram-канал (https://t.me/makrosupermarket_uz)"
+    "uz": "💚Супермаркеты MAKRO — это больше, чем просто магазины, которые мы построили, команда профессионалов которых мы вырастили и клиенты, которых мы обслуживаем ежедневно.\nВ управлении сети 2 формата: экспресс 24/7 и супермаркет.\n💚В наших магазинах вас всегда ждет приятная атмосфера, а доброжелательный персонал сделает пребывание в супермаркетах наиболее комфортным.\n\n📌 <a href='https://makromarket.uz/'>Bizning veb-saytimiz</a>\n📌 <a href='https://fb.com/makromarket.uz/'>Facebook</a>\n📌 <a href='https://instagram.com/makro_supermarket/'>Instagram</a>\n📌 <a href='https://t.me/makrosupermarket_uz'>Telegram-kanali</a>",
+    "ru": "💚MAKRO supermarketlari — bu shunchaki biz qurgan do'konlar, biz yetishtirgan professionallar jamoasi va biz har kuni xizmat ko’rsatadigan mijozlar emas, bundan ancha ko’proq narsani anglatadi.\nTarmoq boshqaruvida 2 format mavjud: ekspress 24/7 va  supermarket.\n💚Bizning do’konlarimizda hamisha sizni yoqimli muhit kutadi, xushmuomala xodimlarimiz esa supermarketlarda o’tkazgan vaqtingizni juda qulay qiladi.\n\n📌 <a href='http://makromarket.uz/'>Наш сайт</a>\n📌 <a href='https://fb.com/makromarket.uz/'>Facebook</a>\n📌 <a href='https://instagram.com/makro_supermarket/'>Instagram</a>\n📌 <a href='https://t.me/makrosupermarket_uz'>Telegram-канал</a>"
 }
 
 ADDRESS = {
@@ -66,8 +71,8 @@ APPLY = {
 }
 
 GOTO = {
-    "uz": "Suhbat har seshanba va payshanba kunlari soat 09:00 dan 17:00 gacha Toshkent shahri, Magtimguli ko‘chasi, 134-uy manzilida o‘tkaziladi.\nMakro Tashselmash, 2-qavat. O'zingiz bilan pasport, diplom yoki ma'lumotingizni tasdiqlovchi, mutaxassisligingiz yoki malakangizni tasdiqlovchi boshqa hujjat, 3x4 o'lchamdagi fotosurat - 2 dona olib keling.",
-    "ru": "Собеседование проводится каждый вторник и четверг с 09:00 до 17:00 по адресу: г. Ташкент, улица Махтумкули, 134.\nMakro Ташсельмаш, 2 этаж. Просим иметь с собой паспорт, диплом или иной документ о полученном образовании, подтверждающий специальность или квалификацию, фото 3х4 – 2 шт."
+    "uz": "Suhbat har seshanba va payshanba kunlari soat 09:00 dan 16:00 gacha quyidagi manzilda o'tkaziladi: Toshkent sh., Magtimguli ko‘chasi, 134. Makro Tashselmash, 2-qavat.\nIltimos, o'zingiz bilan pasport, diplom yoki ma'lumotingizni tasdiqlovchi, mutaxassisligingiz yoki malakangizni tasdiqlovchi boshqa hujjat, 3X4 - 2 dona fotosurat, INPS bo'lsin.",
+    "ru": "Собеседование проводится каждый вторник и четверг с 09:00 до 16:00 по адресу: г. Ташкент улица Махтумкули 134. Makro Ташсельмаш, 2 этаж.\nПросим иметь с собой  паспорт, диплом или иной документ о полученном образовании, подтверждающий специальность или квалификацию, фото 3Х4 – 2шт, ИНПС"
 }
 
 SEND_CV = {
@@ -75,10 +80,15 @@ SEND_CV = {
     "ru": '',
 }
 
+OFIS = {
+    "uz": 'Agar sizda tayyor rezyume bo`lsa, uni shu yerga yuborishingiz mumkin "Qog`oz qisqichi 📎"ni bosing va faylni istalgan formatda yuboring',
+    "ru": 'Если у Вас есть готовое резюме, то можете его отправить здесь Нажмите на "Cкрепку 📎" и отправьте фаил в любом формате',
+}
+
 FillOutForm = {
     "cv": {
-        "uz": "Agar sizda tayyor rezyume bo'lsa, uni shu yerga yuborishingiz mumkin. <b>Qog'oz qisqichi</b> belgisini bosing va faylni istalgan formatda yuboring.",
-        "ru": "Если у вас есть готовое резюме, то вы можете отправить его сюда. Нажмите на значок <b>скрепки</b> и отправьте файл в любом формате.",
+        "uz": "Agar sizda tayyor rezyume bo'lsa, uni shu yerga yuborishingiz mumkin. <b>Qog'oz qisqichi 📎</b> belgisini bosing va faylni istalgan formatda yuboring.",
+        "ru": "Если у вас есть готовое резюме, то вы можете отправить его сюда. Нажмите на значок <b>Cкрепки 📎</b> и отправьте файл в любом формате.",
     },
     "fullname": {
         "uz": 'Ism va familiyangizni yozing',

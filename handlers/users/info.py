@@ -14,7 +14,7 @@ from states.baseState import BaseState, Anketa
 from translations.images import INFO_IMAGE, OFFICE, CONNECT, INTRO_IMAGE
 from translations.translation import INFO, ADDRESS, CONTACT, PROFESSION, INTRO, BackToMain, GOTO, FillOutForm, \
     LastMessage, PHONE_FORMAT_ERROR, FULLNAME_FORMAT_ERROR, FORMAT, NAME, TEL, REQUEST, APP_RESPONSE_ACCEPT, \
-    APP_RESPONSE_CANCEL
+    APP_RESPONSE_CANCEL, OFIS
 
 
 @dp.callback_query_handler(lambda message: message.data == "info", state=BaseState.menu)
@@ -76,8 +76,27 @@ async def get_vacancy(call: types.CallbackQuery, state=FSMContext):
 async def get_regions(call: types.CallbackQuery, state=FSMContext):
     data = await state.get_data()
     language = data.get('language')
+    await state.update_data({
+        "prof": call.data
+    })
+    if call.data == "ofice":
+        photo = 'AgACAgIAAxkBAAIGlGUyq0d9DKh0jmMOAAHNNu5BXjf0wwACbdExG8a8kEkWxcUW4AatHwEAAwIAA3MAAzAE'
+
+        await state.update_data({
+            "prof": 4,
+            'region': 5
+        })
+        await call.message.answer_photo(
+            photo=photo,
+            caption=OFIS.get(language),
+            reply_markup=vacancy(call.data, language)
+        )
+        await call.answer(cache_time=0.02)
+        await call.message.delete()
+        await BaseState.vacancies.set()
+        return
     await call.message.edit_reply_markup(
-        reply_markup=regions(call.data, language)
+        reply_markup=regions(language)
     )
     await call.answer(cache_time=0.02)
     await BaseState.regions.set()
@@ -114,11 +133,8 @@ async def get_vacancies(call: types.CallbackQuery, state=FSMContext):
     data = await state.get_data()
     language = data.get('language')
 
-    prof_id = call.data.split('_')[0]
-    region_id = call.data.split('_')[1]
-
     BASE_URL = env.str("BASE_URL")
-    data = requests.get(url=BASE_URL + f"/api/vacancy-list/?profession={prof_id}",
+    data = requests.get(url=BASE_URL + f"/api/vacancy-list/?profession={data.get('prof')}",
                         headers={"Accept-Language": language})
     if not data.json():
         await call.message.answer(
@@ -137,16 +153,19 @@ async def get_vacancies(call: types.CallbackQuery, state=FSMContext):
             photo = 'AgACAgIAAxkBAAIGk2UyqzTRMTBTkZe_CQHf0_bpXV1TAAJr0TEbxryQSWDm_lLYKQuAAQADAgADcwADMAQ'
         else:  # v.get('profession').get('title') in ['Ofis', 'Офис']:
             photo = 'AgACAgIAAxkBAAIGlGUyq0d9DKh0jmMOAAHNNu5BXjf0wwACbdExG8a8kEkWxcUW4AatHwEAAwIAA3MAAzAE'
+            await call.message.answer_photo(
+                photo=photo,
+                caption=OFIS.get(language),
+                reply_markup=vacancy(v, language)
+            )
+            await call.answer(cache_time=0.02)
+            await BaseState.vacancies.set()
+            return
         await call.message.answer_photo(
             photo=photo,
             caption=formated(v, language),
             reply_markup=vacancy(v, language)
         )
-
-    await state.update_data({
-        "prof": prof_id,
-        "region": region_id,
-    })
     await call.answer(cache_time=0.02)
     await BaseState.vacancies.set()
 
@@ -199,8 +218,8 @@ async def back(call: types.CallbackQuery, state=FSMContext):
         )
         await BaseState.professions.set()
         return
-    elif call.data.split('_')[1] == '2':  # rezume yuborish
-        pass
+    # elif call.data.split('_')[1] == '2':  # rezume yuborish
+    #     pass
     elif call.data.split('_')[1] == '0':  # anketa to'ldirish
         await call.message.answer(
             text=FillOutForm.get('cv').get(language),
@@ -321,8 +340,6 @@ async def get_phone(message: types.Message, state=FSMContext):
     BASE_URL = env.str("BASE_URL")
     url = BASE_URL + "/api/application-create/"
     post_data = {
-        "region": data.get("region"),
-        "profession": data.get("prof"),
         "user_id": message.from_user.id,
         "fullname": data.get("fullname"),
         "phone": number,
