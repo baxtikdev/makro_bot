@@ -4,8 +4,8 @@ MENU = {
 }
 
 REGIONS = {
-    "uz": ['Тойтепа', 'Чирчик', 'Ташкент', 'Ферганская область', 'Андижанская облась', 'Кибрай'],
-    "ru": ['Toʻytepa', 'Chirchiq', 'Toshkent', "Farg'ona viloyati", 'Andijon viloyati', 'Qibray']
+    "ru": ['Тойтепа', 'Чирчик', 'Ташкент', 'Ферганская область', 'Андижанская облась', 'Кибрай'],
+    "uz": ['Toʻytepa', 'Chirchiq', 'Toshkent', "Farg'ona viloyati", 'Andijon viloyati', 'Qibray']
 }
 
 INTRO = {
@@ -14,8 +14,8 @@ INTRO = {
 }
 
 INFO = {
-    "uz": "💚Супермаркеты MAKRO — это больше, чем просто магазины, которые мы построили, команда профессионалов которых мы вырастили и клиенты, которых мы обслуживаем ежедневно.\nВ управлении сети 2 формата: экспресс 24/7 и супермаркет.\n💚В наших магазинах вас всегда ждет приятная атмосфера, а доброжелательный персонал сделает пребывание в супермаркетах наиболее комфортным.\n\n📌 <a href='https://makromarket.uz/'>Bizning veb-saytimiz</a>\n📌 <a href='https://fb.com/makromarket.uz/'>Facebook</a>\n📌 <a href='https://instagram.com/makro_supermarket/'>Instagram</a>\n📌 <a href='https://t.me/makrosupermarket_uz'>Telegram-kanali</a>",
-    "ru": "💚MAKRO supermarketlari — bu shunchaki biz qurgan do'konlar, biz yetishtirgan professionallar jamoasi va biz har kuni xizmat ko’rsatadigan mijozlar emas, bundan ancha ko’proq narsani anglatadi.\nTarmoq boshqaruvida 2 format mavjud: ekspress 24/7 va  supermarket.\n💚Bizning do’konlarimizda hamisha sizni yoqimli muhit kutadi, xushmuomala xodimlarimiz esa supermarketlarda o’tkazgan vaqtingizni juda qulay qiladi.\n\n📌 <a href='http://makromarket.uz/'>Наш сайт</a>\n📌 <a href='https://fb.com/makromarket.uz/'>Facebook</a>\n📌 <a href='https://instagram.com/makro_supermarket/'>Instagram</a>\n📌 <a href='https://t.me/makrosupermarket_uz'>Telegram-канал</a>"
+    "ru": "💚Супермаркеты MAKRO — это больше, чем просто магазины, которые мы построили, команда профессионалов которых мы вырастили и клиенты, которых мы обслуживаем ежедневно.\nВ управлении сети 2 формата: экспресс 24/7 и супермаркет.\n💚В наших магазинах вас всегда ждет приятная атмосфера, а доброжелательный персонал сделает пребывание в супермаркетах наиболее комфортным.\n\n📌 <a href='https://makromarket.uz/'>Bizning veb-saytimiz</a>\n📌 <a href='https://fb.com/makromarket.uz/'>Facebook</a>\n📌 <a href='https://instagram.com/makro_supermarket/'>Instagram</a>\n📌 <a href='https://t.me/makrosupermarket_uz'>Telegram-kanali</a>",
+    "uz": "💚MAKRO supermarketlari — bu shunchaki biz qurgan do'konlar, biz yetishtirgan professionallar jamoasi va biz har kuni xizmat ko’rsatadigan mijozlar emas, bundan ancha ko’proq narsani anglatadi.\nTarmoq boshqaruvida 2 format mavjud: ekspress 24/7 va  supermarket.\n💚Bizning do’konlarimizda hamisha sizni yoqimli muhit kutadi, xushmuomala xodimlarimiz esa supermarketlarda o’tkazgan vaqtingizni juda qulay qiladi.\n\n📌 <a href='http://makromarket.uz/'>Наш сайт</a>\n📌 <a href='https://fb.com/makromarket.uz/'>Facebook</a>\n📌 <a href='https://instagram.com/makro_supermarket/'>Instagram</a>\n📌 <a href='https://t.me/makrosupermarket_uz'>Telegram-канал</a>"
 }
 
 ADDRESS = {
@@ -27,7 +27,7 @@ URL = "https://yandex.uz/maps/org/238561961140/?filter=chain_id%3A220824235256&f
 
 LOCATION = {
     "uz": "Geolokatsiya",
-    "ru": "Геолокация",
+    "ru": "Геолокация"
 }
 
 CONTACT = {
