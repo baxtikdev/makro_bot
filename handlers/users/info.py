@@ -328,7 +328,7 @@ async def get_phone(message: types.Message, state=FSMContext):
         return
 
     await message.answer(
-        text=LastMessage.get(language),
+        text=GOTO.get(language),
         reply_markup=ReplyKeyboardRemove()
     )
     await message.answer_photo(
