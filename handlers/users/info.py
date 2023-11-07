@@ -341,14 +341,12 @@ async def get_phone(message: types.Message, state=FSMContext):
     )
     await BaseState.menu.set()
     BASE_URL = env.str("BASE_URL")
-    prof = requests.get(url=BASE_URL + f"/api/profession-detail/{data.get('prof')}/",
-                        headers={"Accept-Language": language}).json()
     url = BASE_URL + "/api/application-create/"
     post_data = {
         "user_id": message.from_user.id,
         "fullname": data.get("fullname"),
         "region": data.get("region"),
-        "profession": prof.get('title'),
+        # "profession": None,
         "phone": number,
         "language": language,
     }
@@ -390,6 +388,7 @@ async def application(call: types.CallbackQuery, state=FSMContext):
     await call.answer(text=f"{REQUEST.get(language)}", show_alert=True)
     BASE_URL = env.str("BASE_URL")
     data = requests.get(url=BASE_URL + f"/api/application-detail/{id}/", headers={"Accept-Language": language})
+
     response = data.json()
 
     try:
