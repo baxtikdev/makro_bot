@@ -143,7 +143,9 @@ async def get_vacancies(call: types.CallbackQuery, state=FSMContext):
         )
         await BaseState.vacancies.set()
         return
-
+    await state.update_data({
+        "region": call.data
+    })
     for v in data.json():
         if v.get('profession').get('title') in ['Sotuvchi-kassir', 'Продавец-кассир']:
             photo = 'AgACAgIAAxkBAAIGkWUyqu3tXx2xHtiVPq3ZCkGBTtNXAAJo0TEbxryQSTfyUqB0ScI1AQADAgADcwADMAQ'
@@ -158,6 +160,7 @@ async def get_vacancies(call: types.CallbackQuery, state=FSMContext):
                 caption=OFIS.get(language),
                 reply_markup=vacancy(v, language)
             )
+
             await call.answer(cache_time=0.02)
             await BaseState.vacancies.set()
             return
@@ -338,10 +341,14 @@ async def get_phone(message: types.Message, state=FSMContext):
     )
     await BaseState.menu.set()
     BASE_URL = env.str("BASE_URL")
+    prof = requests.get(url=BASE_URL + f"/api/profession-detail/{data.get('prof')}/",
+                        headers={"Accept-Language": language}).json()
     url = BASE_URL + "/api/application-create/"
     post_data = {
         "user_id": message.from_user.id,
         "fullname": data.get("fullname"),
+        "region": data.get("region"),
+        "profession": prof.get('title'),
         "phone": number,
         "language": language,
     }

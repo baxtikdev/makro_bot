@@ -9,8 +9,8 @@ REGIONS = {
 }
 
 INTRO = {
-    "uz": "Assalomu alaykum!\nMen Makro HR jamoasining yordamchisiman\n\nMening yordamim bilan siz:\n<b>1.</b> Makro supermarketlar tarmog'idagi bo'sh ish o'rinlari haqida eng so'nggi ma'lumotlarni topishingiz mumkin\n <b>2.</b> Bo'sh ish o'rinlari uchun ariza/profilingizni yuboring\n<b>3.</b> Makro jamoasiga a'zo bo'ling",
-    "ru": "Здравствуйте!\nЯ - помощник HR команды Makro\n\nС помощью меня, Вы сможете:\n<b>1.</b> Найти актуальную информацию о вакансиях в сети супермаркетов Makro\n<b>2.</b> Отправить свою Заявку/Анкету на вакансию\n<b>3.</b> Стать частью команды Makro"
+    "uz": "Assalomu alaykum!\nMen Makro HR jamoasining yordamchisiman\n\nMening yordamim bilan siz:\n💚 Makro supermarketlar tarmog'idagi bo'sh ish o'rinlari haqida eng so'nggi ma'lumotlarni topishingiz mumkin;\n💚 Bo'sh ish o'rinlari uchun ariza/profilingizni yuboring;\n💚 Makro jamoasiga a'zo bo'ling.\n\n💚 Qo'shimcha savollaringiz bo'lsa, biz bilan bog'lanishingiz mumkin:\n📥 Mail: rabota@msmarket.uz\n📞 Tel: +998 71 205 1 205",
+    "ru": "Здравствуйте!\nЯ - помощник HR команды Makro.\n\nС помощью меня, Вы сможете:\n💚 Найти актуальную информацию о вакансиях в сети супермаркетов Makro;\n💚 Отправить свою Заявку/Анкету на вакансию;\n💚 Стать частью команды Makro.\n\n💚 Если у вас есть дополнительные вопросы, вы можете связаться с нами:\n📥 Почта: rabota@msmarket.uz\n📞 Тел: +998 71 205 1 205"
 }
 
 INFO = {
