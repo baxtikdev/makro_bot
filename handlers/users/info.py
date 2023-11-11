@@ -7,14 +7,14 @@ from aiogram.types.reply_keyboard import ReplyKeyboardRemove
 
 from data.config import env, GROUP
 from keyboards.default.defaultKeys import backFileButton, backButton, phone
-from keyboards.inline.inlineKeys import officeLocation, professions, mainMenu, regions, vacancy, backToMain, backInline, \
+from keyboards.inline.inlineKeys import officeLocation, professions, mainMenu, regions, vacancy, backInline, \
     requestBtn
 from loader import dp, bot
 from states.baseState import BaseState, Anketa
 from translations.images import INFO_IMAGE, OFFICE, CONNECT, INTRO_IMAGE
-from translations.translation import INFO, ADDRESS, CONTACT, PROFESSION, INTRO, BackToMain, GOTO, FillOutForm, \
-    LastMessage, PHONE_FORMAT_ERROR, FULLNAME_FORMAT_ERROR, FORMAT, NAME, TEL, REQUEST, APP_RESPONSE_ACCEPT, \
-    APP_RESPONSE_CANCEL, OFIS
+from translations.translation import INFO, ADDRESS, CONTACT, PROFESSION, INTRO, GOTO, FillOutForm, \
+    PHONE_FORMAT_ERROR, FULLNAME_FORMAT_ERROR, FORMAT, NAME, TEL, REQUEST, APP_RESPONSE_ACCEPT, \
+    APP_RESPONSE_CANCEL, OFIS, VACANCY_CASHIER, VACANCY_LOADER, VACANCY_SECURITY
 
 
 @dp.callback_query_handler(lambda message: message.data == "info", state=BaseState.menu)
@@ -79,13 +79,8 @@ async def get_regions(call: types.CallbackQuery, state=FSMContext):
     await state.update_data({
         "prof": call.data
     })
-    if call.data == "ofice":
+    if call.data in ['Ofis', 'Офис']:
         photo = 'AgACAgIAAxkBAAIGlGUyq0d9DKh0jmMOAAHNNu5BXjf0wwACbdExG8a8kEkWxcUW4AatHwEAAwIAA3MAAzAE'
-
-        await state.update_data({
-            "prof": 4,
-            'region': 5
-        })
         await call.message.answer_photo(
             photo=photo,
             caption=OFIS.get(language),
@@ -133,42 +128,36 @@ async def get_vacancies(call: types.CallbackQuery, state=FSMContext):
     data = await state.get_data()
     language = data.get('language')
 
-    BASE_URL = env.str("BASE_URL")
-    data = requests.get(url=BASE_URL + f"/api/vacancy-list/?profession={data.get('prof')}",
-                        headers={"Accept-Language": language})
-    if not data.json():
-        await call.message.answer(
-            text=BackToMain.get(language),
-            reply_markup=backToMain(language)
-        )
-        await BaseState.vacancies.set()
-        return
     await state.update_data({
         "region": call.data
     })
-    for v in data.json():
-        if v.get('profession').get('title') in ['Sotuvchi-kassir', 'Продавец-кассир']:
-            photo = 'AgACAgIAAxkBAAIGkWUyqu3tXx2xHtiVPq3ZCkGBTtNXAAJo0TEbxryQSTfyUqB0ScI1AQADAgADcwADMAQ'
-        elif v.get('profession').get('title') in ['Yukchi', 'Грузчик']:
-            photo = 'AgACAgIAAxkBAAIGkmUyqyHPaTvE69fuVOF3H6Jkbf3cAAJp0TEbxryQSUtbZ4HoT8FQAQADAgADcwADMAQ'
-        elif v.get('profession').get('title') in ["Qo'riqchi", "Охранник"]:
-            photo = 'AgACAgIAAxkBAAIGk2UyqzTRMTBTkZe_CQHf0_bpXV1TAAJr0TEbxryQSWDm_lLYKQuAAQADAgADcwADMAQ'
-        else:  # v.get('profession').get('title') in ['Ofis', 'Офис']:
-            photo = 'AgACAgIAAxkBAAIGlGUyq0d9DKh0jmMOAAHNNu5BXjf0wwACbdExG8a8kEkWxcUW4AatHwEAAwIAA3MAAzAE'
-            await call.message.answer_photo(
-                photo=photo,
-                caption=OFIS.get(language),
-                reply_markup=vacancy(v, language)
-            )
-
-            await call.answer(cache_time=0.02)
-            await BaseState.vacancies.set()
-            return
+    vacancy_title = data.get('prof')
+    place = "Ish o'rni" if language == 'uz' else "Вакансия"
+    if vacancy_title in ['Sotuvchi-kassir', 'Продавец-кассир']:
+        photo = 'AgACAgIAAxkBAAIGkWUyqu3tXx2xHtiVPq3ZCkGBTtNXAAJo0TEbxryQSTfyUqB0ScI1AQADAgADcwADMAQ'
+        text = f"<b>{place}:  {vacancy_title}</b>" + VACANCY_CASHIER.get(language)
+    elif vacancy_title in ['Yukchi', 'Грузчик']:
+        photo = 'AgACAgIAAxkBAAIGkmUyqyHPaTvE69fuVOF3H6Jkbf3cAAJp0TEbxryQSUtbZ4HoT8FQAQADAgADcwADMAQ'
+        text = f"<b>{place}:  {vacancy_title}</b>" + VACANCY_LOADER.get(language)
+    elif vacancy_title in ["Qo'riqchi", "Охранник"]:
+        photo = 'AgACAgIAAxkBAAIGk2UyqzTRMTBTkZe_CQHf0_bpXV1TAAJr0TEbxryQSWDm_lLYKQuAAQADAgADcwADMAQ'
+        text = f"<b>{place}:  {vacancy_title}</b>" + VACANCY_SECURITY.get(language)
+    else:  # call.data in ['Ofis', 'Офис']:
+        photo = 'AgACAgIAAxkBAAIGlGUyq0d9DKh0jmMOAAHNNu5BXjf0wwACbdExG8a8kEkWxcUW4AatHwEAAwIAA3MAAzAE'
         await call.message.answer_photo(
             photo=photo,
-            caption=formated(v, language),
-            reply_markup=vacancy(v, language)
+            caption=OFIS.get(language),
+            reply_markup=vacancy(vacancy_title, language)
         )
+
+        await call.answer(cache_time=0.02)
+        await BaseState.vacancies.set()
+        return
+    await call.message.answer_photo(
+        photo=photo,
+        caption=text,
+        reply_markup=vacancy(call.data, language)
+    )
     await call.answer(cache_time=0.02)
     await BaseState.vacancies.set()
 
@@ -346,7 +335,7 @@ async def get_phone(message: types.Message, state=FSMContext):
         "user_id": message.from_user.id,
         "fullname": data.get("fullname"),
         "region": data.get("region"),
-        # "profession": None,
+        "profession": data.get("prof"),
         "phone": number,
         "language": language,
     }

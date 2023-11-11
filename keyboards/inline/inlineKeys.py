@@ -1,8 +1,7 @@
-import requests
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from data.config import env
-from translations.translation import MENU, URL, LOCATION, BACK, BackToMainButton, APPLY, APPROVE, CANCEL, REGIONS
+from translations.translation import MENU, URL, LOCATION, BACK, BackToMainButton, APPLY, APPROVE, CANCEL, REGIONS, \
+    PROFESSIONS
 
 language = InlineKeyboardMarkup(
     inline_keyboard=[
@@ -49,13 +48,8 @@ def getVacancies(lang='uz'):
 
 def professions(lang='uz'):
     keyboard = InlineKeyboardMarkup(row_width=2)
-    BASE_URL = env.str("BASE_URL")
-    data = requests.get(url=BASE_URL + "/api/profession-list/", headers={"Accept-Language": lang})
-    for p in data.json():
-        if p.get('title') in ['Ofis', 'Офис']:
-            keyboard.insert(InlineKeyboardButton(text=p.get('title'), callback_data='ofice'))
-            continue
-        keyboard.insert(InlineKeyboardButton(text=p.get('title'), callback_data=p.get('id')))
+    for p in PROFESSIONS.get(lang):
+        keyboard.insert(InlineKeyboardButton(text=p, callback_data=p))
     keyboard.add(InlineKeyboardButton(text=f"◀️ {BACK.get(lang)}", callback_data="back"))
     return keyboard
 
@@ -68,10 +62,6 @@ def backBtn(lang='uz'):
 
 def regions(lang='uz'):
     keyboard = InlineKeyboardMarkup(row_width=2)
-    # BASE_URL = env.str("BASE_URL")
-    # data = requests.get(url=BASE_URL + "/api/region-list/", headers={"Accept-Language": lang})
-    # for r in data.json():
-    #     keyboard.insert(InlineKeyboardButton(text=r.get('title'), callback_data=f"{prof_id}_{r.get('id')}"))
     for r in REGIONS.get(lang):
         keyboard.insert(InlineKeyboardButton(text=r, callback_data=r))
     keyboard.add(InlineKeyboardButton(text=f"◀️ {BACK.get(lang)}", callback_data="back"))
@@ -80,13 +70,9 @@ def regions(lang='uz'):
 
 def vacancy(vacancy, lang='uz'):
     keyboard = InlineKeyboardMarkup(row_width=1)
-    if vacancy == 'ofice':
-        tr = 'Ofis' if language == 'uz' else 'Офис'
-    else:
-        tr = vacancy.get('profession').get('title')
     for j, i in enumerate(APPLY.get(lang)):
         keyboard.insert(InlineKeyboardButton(text=i,
-                                             callback_data=f"{tr}_{j}"))
+                                             callback_data=f"{vacancy}_{j}"))
     keyboard.add(InlineKeyboardButton(text=f"◀️ {BackToMainButton.get(lang)}", callback_data="MAIN"))
     return keyboard
 

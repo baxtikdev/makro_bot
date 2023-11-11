@@ -4,13 +4,18 @@ MENU = {
 }
 
 REGIONS = {
-    "ru": ['Тойтепа', 'Чирчик', 'Ташкент', 'Ферганская область', 'Андижанская облась', 'Кибрай'],
-    "uz": ['Toʻytepa', 'Chirchiq', 'Toshkent', "Farg'ona viloyati", 'Andijon viloyati', 'Qibray']
+    "uz": ['Toʻytepa', 'Chirchiq', 'Toshkent', "Farg'ona viloyati", 'Andijon viloyati', 'Qibray'],
+    "ru": ['Тойтепа', 'Чирчик', 'Ташкент', 'Ферганская область', 'Андижанская облась', 'Кибрай']
+}
+
+PROFESSIONS = {
+    "uz": ['Sotuvchi-kassir', 'Yukchi', "Qo'riqchi", "Ofis"],
+    "ru": ['Продавец-кассир', 'Грузчик', 'Охранник', 'Офис']
 }
 
 INTRO = {
-    "uz": "Assalomu alaykum!\nMen Makro HR jamoasining yordamchisiman\n\nMening yordamim bilan siz:\n💚 Makro supermarketlar tarmog'idagi bo'sh ish o'rinlari haqida eng so'nggi ma'lumotlarni topishingiz mumkin;\n💚 Bo'sh ish o'rinlari uchun ariza/profilingizni yuboring;\n💚 Makro jamoasiga a'zo bo'ling.\n\n💚 Qo'shimcha savollaringiz bo'lsa, biz bilan bog'lanishingiz mumkin:\n📥 Mail: rabota@msmarket.uz\n📞 Tel: +998 71 205 1 205",
-    "ru": "Здравствуйте!\nЯ - помощник HR команды Makro.\n\nС помощью меня, Вы сможете:\n💚 Найти актуальную информацию о вакансиях в сети супермаркетов Makro;\n💚 Отправить свою Заявку/Анкету на вакансию;\n💚 Стать частью команды Makro.\n\n💚 Если у вас есть дополнительные вопросы, вы можете связаться с нами:\n📥 Почта: rabota@msmarket.uz\n📞 Тел: +998 71 205 1 205"
+    "uz": "Assalomu alaykum!\nMen Makro HR jamoasining yordamchisiman\n\nMening yordamim bilan siz:\n💚 Makro supermarketlar tarmog'idagi bo'sh ish o'rinlari haqida eng so'nggi ma'lumotlarni topishingiz mumkin;\n💚 Bo'sh ish o'rinlari uchun ariza/profilingizni yuboring;\n💚 Makro jamoasiga a'zo bo'ling.",
+    "ru": "Здравствуйте!\nЯ - помощник HR команды Makro.\n\nС помощью меня, Вы сможете:\n💚 Найти актуальную информацию о вакансиях в сети супермаркетов Makro;\n💚 Отправить свою Заявку/Анкету на вакансию;\n💚 Стать частью команды Makro."
 }
 
 INFO = {
@@ -31,8 +36,8 @@ LOCATION = {
 }
 
 CONTACT = {
-    "uz": "Qo'shimcha savollaringiz bo'lsa, biz bilan bog'lanishingiz mumkin:\nKontaktlar:\n📥 Mail: rabota@msmarket.uz\n📞 Tel: +998 71 205 1 205",
-    "ru": "Если у вас есть дополнительные вопросы, вы можете связаться с нами:\nКонтакты:\n📥 Почта: rabota@msmarket.uz\n📞 Тел: +998 71 205 1 205",
+    "uz": "💚 Qo'shimcha savollaringiz bo'lsa, biz bilan bog'lanishingiz mumkin:\n📥 Mail: rabota@msmarket.uz\n📞 Tel: +998 71 205 1 205",
+    "ru": "💚 Если у вас есть дополнительные вопросы, вы можете связаться с нами:\n📥 Почта: rabota@msmarket.uz\n📞 Тел: +998 71 205 1 205",
 }
 
 BACK = {
@@ -147,11 +152,26 @@ REQUEST = {
 }
 
 APP_RESPONSE_ACCEPT = {
-    "uz": "Siz yuborgan so'rov qavul qilindi, iltimos Makro ofisiga kerakli xujjatlar bilan boring.",
+    "uz": "Siz yuborgan so'rov qabul qilindi, iltimos Makro ofisiga kerakli xujjatlar bilan boring.",
     "ru": "Ваш запрос принят, пожалуйста, обратитесь в офис Макро с необходимыми документами.",
 }
 
 APP_RESPONSE_CANCEL = {
     "uz": "Siz yuborgan so'rov qavul qilinmadi",
     "ru": "Ваш запрос не принят",
+}
+
+VACANCY_CASHIER = {
+    "uz": "\n❗️Talablar\nChakana savdo sohasida ish tajribasi bo’lgani ma’qul, lekin shart emas;\nchiqishimlilik, maqsadga intiluvchanlik, rivojlanish va o'rganishga tayyorlik.\n\n📍Mas'uliyat:\n- xaridorlarga xizmat ko'rsatish\n\n ✅ Ish sharoitlari:\nUyingiz yonidagi ish;\nOvqatlanish kompaniya hisobidan;\nKorporativ ta'lim va lavozimda ko’tarilish imkoniyati;\nYosh va ahil jamoa.",
+    "ru": "\n❗️Требования\nОпыт работы в сфере розничных продаж желателен, но не обязателен;\nКоммуникабельность, целеустремленность, готовность развиваться и обучаться.\n\n📍- обязанности:\n- обслуживание покупателей\n\n ✅ Условия работы:\nРабота рядом с домом;\nПитание за счет компании;\nКорпоративное обучение и возможность карьерного роста;\nМолодой и дружный коллектив.",
+}
+
+VACANCY_LOADER = {
+    "uz": "\n📍Mas'uliyat:\n- tovarlarni yuklash va tushirish;\n- tovarlarni jo'natishga tayyorlash.\n\n ✅ Ish sharoitlari:\nUyingiz yonidagi ish;\nOvqatlanish kompaniya hisobidan;\nKorporativ ta'lim va lavozimda ko’tarilish imkoniyati;\nYosh va ahil jamoa.",
+    "ru": "\n📍Обязанности:\n- загрузка и разгрузка товара;\n- подготовка товара к отгрузке.\n\n ✅ Условия работы:\nРабота рядом с домом;\nПитание за счет компании;\nКорпоративное обучение и возможность карьерного роста;\nМолодой и дружный коллектив.",
+}
+
+VACANCY_SECURITY = {
+    "uz": "\n📍Mas'uliyat:\n- xaridorlarga xizmat ko'rsatish\n\n ✅ Ish sharoitlari:\nUyingiz yonidagi ish;\nOvqatlanish kompaniya hisobidan;\nKorporativ ta'lim va lavozimda ko’tarilish imkoniyati;\nYosh va ahil jamoa.",
+    "ru": "\n📍Обязанности:\n- обслуживание покупателей\n\n ✅ Условия работы:\nРабота рядом с домом;\nПитание за счет компании;\nКорпоративное обучение и возможность карьерного роста;\nМолодой и дружный коллектив.",
 }
