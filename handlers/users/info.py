@@ -331,6 +331,18 @@ async def get_phone(message: types.Message, state=FSMContext):
     await BaseState.menu.set()
     BASE_URL = env.str("BASE_URL")
     url = BASE_URL + "/api/application-create/"
+    file_content = None
+    if data.get('file_id'):
+        file_info = await bot.get_file(data.get('file_id'))
+        print(file_info.file_path)
+        file_content = await bot.download_file(file_info.file_path)
+        files = {'file': (file_info.file_path, file_content)}
+    elif data.get('photo_file_id'):
+        file_info = await bot.get_file(data.get('photo_file_id'))
+        print(file_info.file_path)
+        file_content = await bot.download_file(file_info.file_path)
+        files = {'file': (file_info.file_path, file_content)}
+
     post_data = {
         "user_id": message.from_user.id,
         "fullname": data.get("fullname"),
@@ -338,9 +350,12 @@ async def get_phone(message: types.Message, state=FSMContext):
         "profession": data.get("prof"),
         "phone": number,
         "language": language,
+        # "file": file_content
     }
-
-    response = requests.post(url, data=post_data)
+    if file_content:
+        response = requests.post(url, data=post_data, files=files)
+    else:
+        response = requests.post(url, data=post_data)
     response_data = response.json()
     id = response_data.get('id')
 
@@ -358,6 +373,7 @@ async def get_phone(message: types.Message, state=FSMContext):
         await bot.send_message(chat_id=GROUP,
                                text=f"👤 {NAME.get(language)}: {data.get('fullname')}\n\n📞 {TEL.get(language)}: {number}",
                                reply_markup=requestBtn(id, language))
+
 
     await state.finish()
     await BaseState.menu.set()
