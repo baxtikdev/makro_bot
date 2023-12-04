@@ -253,7 +253,7 @@ async def get_file(message: types.Message, state=FSMContext):
 
     if message.photo:
         await state.update_data({
-            "photo_file_id": message.photo[0].file_id
+            "photo_file_id": message.photo[-1].file_id
         })
     else:
         await state.update_data({
@@ -332,14 +332,17 @@ async def get_phone(message: types.Message, state=FSMContext):
     BASE_URL = env.str("BASE_URL")
     url = BASE_URL + "/api/application-create/"
     file_content = None
+    file_name = None
     if data.get('file_id'):
         file_info = await bot.get_file(data.get('file_id'))
         print(file_info.file_path)
+        file_name = file_info.file_path.split('/')[1]
         file_content = await bot.download_file(file_info.file_path)
         files = {'file': (file_info.file_path, file_content)}
     elif data.get('photo_file_id'):
         file_info = await bot.get_file(data.get('photo_file_id'))
         print(file_info.file_path)
+        file_name = file_info.file_path.split('/')[1]
         file_content = await bot.download_file(file_info.file_path)
         files = {'file': (file_info.file_path, file_content)}
 
@@ -350,7 +353,7 @@ async def get_phone(message: types.Message, state=FSMContext):
         "profession": data.get("prof"),
         "phone": number,
         "language": language,
-        # "file": file_content
+        "file_url": "https://makromarket.uz/vacancy/" + file_name if file_name else ''
     }
     if file_content:
         response = requests.post(url, data=post_data, files=files)
@@ -373,7 +376,6 @@ async def get_phone(message: types.Message, state=FSMContext):
         await bot.send_message(chat_id=GROUP,
                                text=f"👤 {NAME.get(language)}: {data.get('fullname')}\n\n📞 {TEL.get(language)}: {number}",
                                reply_markup=requestBtn(id, language))
-
 
     await state.finish()
     await BaseState.menu.set()
